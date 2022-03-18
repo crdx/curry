@@ -7,7 +7,7 @@ Real-time rates are not available on the free plan, but historical ones are, so 
 ## Installation
 
 ```bash
-go install github.com/crdx/curry@1.0.0
+go install github.com/crdx/curry@v1.0.0
 ```
 
 ## Configuration
