@@ -9,7 +9,6 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/crdx/curry/api"
 	"github.com/crdx/curry/cache"
 	"github.com/crdx/curry/util"
 
@@ -89,20 +88,32 @@ func (self HistoricData) isValid() bool {
 	return self.Success && self.Error.Code == 0 && len(self.Rates) > 0
 }
 
-func getAccessKey() string {
-	accessKey, err := os.ReadFile(path.Join(os.Getenv("HOME"), ".config", ProgramName, "api_key"))
+func check(err error) {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func fetchRawForDay(day string, accessKey string) (body []byte, err error) {
+	body, err = util.HttpGetJson(
+		// https is not supported on the free plan.
+		fmt.Sprintf("http://api.exchangeratesapi.io/%s", day),
+		map[string]string{"access_key": accessKey},
+	)
+
+	return
+}
+
+func getAccessKey() string {
+	accessKey, err := os.ReadFile(path.Join(os.Getenv("HOME"), ".config", ProgramName, "api_key"))
+	check(err)
 	return strings.TrimSpace(string(accessKey))
 }
 
 func main() {
 	log.SetFlags(0)
 	var opts Opts
-	if err := duckopt.Parse(getUsage(), "$0").Bind(&opts); err != nil {
-		panic(err)
-	}
+	check(duckopt.Parse(getUsage(), "$0").Bind(&opts))
 	col.InitUnless(opts.NoColor)
 
 	day := util.GetYesterday()
@@ -117,21 +128,23 @@ func main() {
 		os.Exit(0)
 	}
 
-	raw := ratesCache.ReadBytes(func() []byte {
-		return api.FetchRawForDay(day, getAccessKey())
+	raw, err := ratesCache.ReadBytes(func() []byte {
+		body, err := fetchRawForDay(day, getAccessKey())
+		check(err)
+		return body
 	})
 
+	check(err)
+
 	var data HistoricData
-	if err := json.Unmarshal(raw, &data); err != nil {
-		log.Fatal(err)
-	}
+	check(json.Unmarshal(raw, &data))
 
 	if !data.isValid() {
 		fmt.Println(col.Red("Unable to fetch rates"))
 		log.Fatal(data.Error)
 	}
 
-	ratesCache.WriteBytes(raw)
+	check(ratesCache.WriteBytes(raw))
 
 	if opts.Raw {
 		fmt.Printf("%s\n", raw)

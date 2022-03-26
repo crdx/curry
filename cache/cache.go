@@ -1,7 +1,6 @@
 package cache
 
 import (
-	"log"
 	"os"
 	"path"
 )
@@ -30,31 +29,26 @@ func (self Cache) Delete() bool {
 	return os.Remove(self.filePath) == nil
 }
 
-func (self Cache) ReadBytes(cb func() []byte) []byte {
+func (self Cache) ReadBytes(cb func() []byte) (data []byte, err error) {
 	if !self.exists() {
-		return cb()
+		data = cb()
+		return
 	}
 
-	data, err := os.ReadFile(self.filePath)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return data
+	data, err = os.ReadFile(self.filePath)
+	return
 }
 
-func (self Cache) WriteBytes(bytes []byte) {
+func (self Cache) WriteBytes(bytes []byte) (err error) {
 	if self.exists() {
 		return
 	}
 
-	err := os.MkdirAll(self.dirPath, 0o777)
+	err = os.MkdirAll(self.dirPath, 0o777)
 	if err != nil {
-		log.Fatal(err)
+		return
 	}
 
 	err = os.WriteFile(self.filePath, bytes, 0o666)
-	if err != nil {
-		log.Fatal(err)
-	}
+	return
 }
