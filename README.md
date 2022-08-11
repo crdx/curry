@@ -82,4 +82,4 @@ Open an [issue](https://github.com/crdx/curry/issues) or send a [pull request](h
 
 ## Licence
 
-[MIT](LICENCE.md).
+[GPLv3](LICENCE).
