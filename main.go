@@ -143,7 +143,7 @@ func main() {
 	rateTo := data.Rates[opts.CurrencyTo]
 	if rateTo == 0 {
 		log.Fatalf(
-			col.Red("Error: target %s is not supported - run \"%s ls\" to see available currencies"),
+			col.Red("Error: target %s is not supported — run \"%s ls\" to see available currencies"),
 			opts.CurrencyTo,
 			ProgramName,
 		)
