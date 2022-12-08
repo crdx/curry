@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"path"
+	"strconv"
 	"strings"
 
 	"github.com/crdx/curry/cache"
@@ -42,14 +43,14 @@ func getUsage() string {
 }
 
 type Opts struct {
-	Clean        bool    `docopt:"clean"`
-	Raw          bool    `docopt:"raw"`
-	List         bool    `docopt:"ls"`
-	ValueFrom    float32 `docopt:"<value>"`
-	CurrencyFrom string  `docopt:"--from"`
-	CurrencyTo   string  `docopt:"--to"`
-	Quiet        bool    `docopt:"--quiet"`
-	NoColor      bool    `docopt:"--no-color"`
+	Clean        bool   `docopt:"clean"`
+	Raw          bool   `docopt:"raw"`
+	List         bool   `docopt:"ls"`
+	ValueFrom    string `docopt:"<value>"`
+	CurrencyFrom string `docopt:"--from"`
+	CurrencyTo   string `docopt:"--to"`
+	Quiet        bool   `docopt:"--quiet"`
+	NoColor      bool   `docopt:"--no-color"`
 }
 
 func check(err error) {
@@ -121,8 +122,13 @@ func main() {
 		os.Exit(0)
 	}
 
-	if opts.ValueFrom == 0 {
-		log.Fatal(col.Red("Supply a valid non-zero float"))
+	valueFrom, err := strconv.ParseFloat(opts.ValueFrom, 64)
+	if err != nil {
+		log.Fatalf(col.Red("Error: %s is not a number"), opts.ValueFrom)
+	}
+
+	if valueFrom == 0 {
+		log.Fatal(col.Red("Error: cannot convert from 0"))
 	}
 
 	rateFrom := data.Rates[opts.CurrencyFrom]
@@ -143,14 +149,14 @@ func main() {
 		)
 	}
 
-	valueTo := opts.ValueFrom / (rateFrom / rateTo)
+	valueTo := valueFrom / (rateFrom / rateTo)
 
 	if opts.Quiet {
 		fmt.Printf("%.2f\n", valueTo)
 	} else {
 		fmt.Printf(
 			"%.2f %s is %.2f %s (as of %s)\n",
-			opts.ValueFrom,
+			valueFrom,
 			opts.CurrencyFrom,
 			valueTo,
 			opts.CurrencyTo,

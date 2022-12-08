@@ -5,7 +5,7 @@ import (
 	"sort"
 )
 
-type Rates map[string]float32
+type Rates map[string]float64
 
 func (self Rates) getSortedCurrencies() []string {
 	var keys []string
