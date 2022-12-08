@@ -54,7 +54,7 @@ type Opts struct {
 
 func check(err error) {
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(col.Red("Error: " + err.Error()))
 	}
 }
 
@@ -85,7 +85,7 @@ func main() {
 
 	if opts.Clean {
 		if ratesCache.Delete() {
-			fmt.Println(col.Green("Cache file cleared"))
+			fmt.Println(col.Green("Cache file removed"))
 		} else {
 			fmt.Println(col.Yellow("No cache file found"))
 		}
@@ -104,8 +104,7 @@ func main() {
 	check(json.Unmarshal(raw, &data))
 
 	if !data.isValid() {
-		fmt.Println(col.Red("Unable to fetch rates"))
-		log.Fatal(data.Error)
+		log.Fatal(col.Red("Error: unable to fetch rates: " + data.Error.String()))
 	}
 
 	check(ratesCache.WriteBytes(raw))
@@ -129,7 +128,7 @@ func main() {
 	rateFrom := data.Rates[opts.CurrencyFrom]
 	if rateFrom == 0 {
 		log.Fatalf(
-			col.Red("Source %s is not supported. Run \"%s list\" to see available currencies."),
+			col.Red("Error: source %s is not supported — run \"%s ls\" to see available currencies"),
 			opts.CurrencyFrom,
 			ProgramName,
 		)
@@ -138,7 +137,7 @@ func main() {
 	rateTo := data.Rates[opts.CurrencyTo]
 	if rateTo == 0 {
 		log.Fatalf(
-			col.Red("Target %s is not supported. Run \"%s list\" to see available currencies."),
+			col.Red("Error: target %s is not supported - run \"%s ls\" to see available currencies"),
 			opts.CurrencyTo,
 			ProgramName,
 		)
