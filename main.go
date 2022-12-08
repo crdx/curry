@@ -21,16 +21,16 @@ func getUsage() string {
 	return `
 		Usage:
 		    $0 raw
-		    $0 list
-		    $0 clear
+		    $0 ls
+		    $0 clean
 		    $0 [options] <value>
 
 		Convert currencies.
 
 		Commands:
 		    raw      Print raw json
-		    clear    Clear the cache
-		    list     List available currencies
+		    ls       List available currencies
+		    clean    Clean cache
 
 		Options:
 		    -f, --from TYPE    From this currency [default: GBP]
@@ -42,9 +42,9 @@ func getUsage() string {
 }
 
 type Opts struct {
-	Clear        bool    `docopt:"clear"`
+	Clean        bool    `docopt:"clean"`
 	Raw          bool    `docopt:"raw"`
-	List         bool    `docopt:"list"`
+	List         bool    `docopt:"ls"`
 	ValueFrom    float32 `docopt:"<value>"`
 	CurrencyFrom string  `docopt:"--from"`
 	CurrencyTo   string  `docopt:"--to"`
@@ -83,7 +83,7 @@ func main() {
 	day := util.GetYesterday()
 	ratesCache := cache.New(path.Join(os.Getenv("HOME"), ".cache", ProgramName, day+".json"))
 
-	if opts.Clear {
+	if opts.Clean {
 		if ratesCache.Delete() {
 			fmt.Println(col.Green("Cache file cleared"))
 		} else {

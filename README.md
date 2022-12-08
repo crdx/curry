@@ -19,16 +19,16 @@ Place a valid exchangerates.io API key in `~/.config/curry/api_key`.
 ```
 Usage:
     curry raw
-    curry list
-    curry clear
+    curry ls
+    curry clean
     curry [options] <value>
 
 Convert currencies.
 
 Commands:
     raw      Print raw json
-    clear    Clear the cache
-    list     List available currencies
+    ls       List available currencies
+    clean    Clean cache
 
 Options:
     -f, --from TYPE    From this currency [default: GBP]
