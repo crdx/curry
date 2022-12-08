@@ -11,8 +11,8 @@ func GetYesterday() string {
 }
 
 func HttpGetJson(endpoint string, params map[string]string) (body []byte, err error) {
-	client := http.Client{} // nolint
-	request, err := http.NewRequest("GET", endpoint, nil)
+	var client http.Client
+	request, err := http.NewRequest(http.MethodGet, endpoint, nil)
 
 	if err != nil {
 		return
