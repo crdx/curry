@@ -6,7 +6,6 @@ import (
 	"log"
 	"os"
 	"path"
-	"sort"
 	"strings"
 
 	"github.com/crdx/curry/cache"
@@ -51,41 +50,6 @@ type Opts struct {
 	CurrencyTo   string  `docopt:"--to"`
 	Quiet        bool    `docopt:"--quiet"`
 	NoColor      bool    `docopt:"--no-color"`
-}
-
-type Rates map[string]float32
-
-func (self Rates) getSortedCurrencies() []string {
-	var keys []string
-	for key := range self {
-		keys = append(keys, key)
-	}
-	sort.Strings(keys)
-	return keys
-}
-
-type HistoricDataError struct {
-	Code int
-	Type string
-	Info string
-}
-
-func (self HistoricDataError) String() string {
-	return fmt.Sprintf("[%d] %s: %s", self.Code, self.Type, self.Info)
-}
-
-type HistoricData struct {
-	Success    bool
-	Historical bool
-	Base       string
-	Date       string
-	Timestamp  int
-	Rates      Rates
-	Error      HistoricDataError
-}
-
-func (self HistoricData) isValid() bool {
-	return self.Success && self.Error.Code == 0 && len(self.Rates) > 0
 }
 
 func check(err error) {
@@ -136,7 +100,7 @@ func main() {
 
 	check(err)
 
-	var data HistoricData
+	var data Data
 	check(json.Unmarshal(raw, &data))
 
 	if !data.isValid() {
