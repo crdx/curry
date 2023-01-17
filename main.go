@@ -9,8 +9,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/crdx/curry/cache"
-	"github.com/crdx/curry/util"
+	"github.com/crdx/curry/internal/cache"
+	"github.com/crdx/curry/internal/util"
 
 	"github.com/crdx/col"
 	"github.com/crdx/duckopt"
