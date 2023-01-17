@@ -3,7 +3,7 @@ module github.com/crdx/curry
 go 1.18
 
 require (
-	github.com/crdx/col v1.0.0
+	github.com/crdx/col v1.0.1
 	github.com/crdx/duckopt v1.0.0
 )
 
