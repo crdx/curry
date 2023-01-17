@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/crdx/col v1.0.0
-	github.com/crdx/duckopt v1.0.0
+	github.com/crdx/duckopt v1.0.1
 )
 
 require (
