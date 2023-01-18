@@ -9,11 +9,11 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/crdx/curry/internal/cache"
-	"github.com/crdx/curry/internal/util"
+	"crdx.org/curry/internal/cache"
+	"crdx.org/curry/internal/util"
 
-	"github.com/crdx/col"
-	"github.com/crdx/duckopt"
+	"crdx.org/col"
+	"crdx.org/duckopt"
 )
 
 const ProgramName = "curry"
