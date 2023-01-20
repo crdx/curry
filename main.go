@@ -13,7 +13,7 @@ import (
 	"crdx.org/curry/internal/util"
 
 	"crdx.org/col"
-	"crdx.org/duckopt"
+	"crdx.org/duckopt/v2"
 )
 
 const ProgramName = "curry"
@@ -77,8 +77,8 @@ func getAccessKey() string {
 
 func main() {
 	log.SetFlags(0)
-	var opts Opts
-	check(duckopt.Parse(getUsage(), "$0").Bind(&opts))
+	opts := duckopt.MustBind[Opts](getUsage(), "$0")
+
 	col.InitUnless(opts.NoColor)
 
 	day := util.GetYesterday()
