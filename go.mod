@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	crdx.org/col v1.0.3
-	crdx.org/duckopt/v2 v2.0.0
+	crdx.org/duckopt/v2 v2.0.1
 )
 
 require (
