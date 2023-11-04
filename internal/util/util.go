@@ -13,7 +13,6 @@ func GetYesterday() string {
 func HttpGetJson(endpoint string, params map[string]string) (body []byte, err error) {
 	var client http.Client
 	request, err := http.NewRequest(http.MethodGet, endpoint, nil)
-
 	if err != nil {
 		return
 	}
@@ -26,7 +25,6 @@ func HttpGetJson(endpoint string, params map[string]string) (body []byte, err er
 
 	request.Header.Add("Accept", "application/json")
 	res, err := client.Do(request)
-
 	if err != nil {
 		return
 	}
