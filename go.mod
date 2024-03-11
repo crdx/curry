@@ -1,6 +1,8 @@
 module crdx.org/curry
 
-go 1.18
+go 1.22.0
+
+toolchain go1.22.1
 
 require (
 	crdx.org/col v1.1.1
