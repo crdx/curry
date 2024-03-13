@@ -6,7 +6,7 @@ toolchain go1.22.1
 
 require (
 	crdx.org/col v1.1.1
-	crdx.org/duckopt/v2 v2.0.1
+	crdx.org/duckopt/v2 v2.1.0
 )
 
 require (

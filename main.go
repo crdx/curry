@@ -21,24 +21,24 @@ const ProgramName = "curry"
 func getUsage() string {
 	return `
 		Usage:
-		    $0 raw
-		    $0 ls
-		    $0 clean
-		    $0 [options] <value>
+			$0 raw
+			$0 ls
+			$0 clean
+			$0 [options] <value>
 
 		Convert currencies.
 
 		Commands:
-		    raw      Print raw json
-		    ls       List available currencies
-		    clean    Clean cache
+			raw      Print raw json
+			ls       List available currencies
+			clean    Clean cache
 
 		Options:
-		    -f, --from TYPE    From this currency [default: GBP]
-		    -t, --to TYPE      To this currency [default: GBP]
-		    -q, --quiet        Show only the value
-		    -C, --no-color     Disable colours
-		    -h, --help         Show help
+			-f, --from TYPE    From this currency [default: GBP]
+			-t, --to TYPE      To this currency [default: GBP]
+			-q, --quiet        Show only the value
+			-C, --no-color     Disable colours
+			-h, --help         Show help
 	`
 }
 
