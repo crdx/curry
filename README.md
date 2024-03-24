@@ -35,7 +35,6 @@ Options:
     -t, --to TYPE      To this currency [default: GBP]
     -q, --quiet        Show only the value
     -C, --no-color     Disable colours
-    -h, --help         Show help
 ```
 
 ## Examples
