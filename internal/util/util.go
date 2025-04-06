@@ -29,7 +29,7 @@ func HttpGetJson(endpoint string, params map[string]string) (body []byte, err er
 		return
 	}
 
-	defer res.Body.Close()
+	defer res.Body.Close() //nolint:errcheck
 
 	body, err = io.ReadAll(res.Body)
 	return

@@ -17,9 +17,9 @@ func (self Rates) getSortedCurrencies() []string {
 }
 
 type DataError struct {
-	Code int
-	Type string
-	Info string
+	Code int    `json:"code"`
+	Type string `json:"type"`
+	Info string `json:"info"`
 }
 
 func (self DataError) String() string {
@@ -27,13 +27,13 @@ func (self DataError) String() string {
 }
 
 type Data struct {
-	Success    bool
-	Historical bool
-	Base       string
-	Date       string
-	Timestamp  int
-	Rates      Rates
-	Error      DataError
+	Success    bool      `json:"success"`
+	Historical bool      `json:"historical"`
+	Base       string    `json:"base"`
+	Date       string    `json:"date"`
+	Timestamp  int       `json:"timestamp"`
+	Rates      Rates     `json:"rates"`
+	Error      DataError `json:"error"`
 }
 
 func (self Data) isValid() bool {
