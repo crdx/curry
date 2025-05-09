@@ -17,11 +17,6 @@ func New(filePath string) Cache {
 	}
 }
 
-func (self Cache) exists() bool {
-	_, err := os.Stat(self.filePath)
-	return err == nil
-}
-
 func (self Cache) Delete() bool {
 	if !self.exists() {
 		return false
@@ -51,4 +46,9 @@ func (self Cache) WriteBytes(bytes []byte) (err error) {
 
 	err = os.WriteFile(self.filePath, bytes, 0o666)
 	return
+}
+
+func (self Cache) exists() bool {
+	_, err := os.Stat(self.filePath)
+	return err == nil
 }
