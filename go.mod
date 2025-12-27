@@ -3,7 +3,7 @@ module crdx.org/curry
 go 1.24
 
 require (
-	crdx.org/col v1.1.1
+	crdx.org/col v1.2.0
 	crdx.org/duckopt/v2 v2.3.0
 )
 
