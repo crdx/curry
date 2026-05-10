@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"path"
+	"path/filepath"
 	"strconv"
-	"strings"
 
 	"crdx.org/curry/internal/cache"
+	"crdx.org/curry/internal/config"
 	"crdx.org/curry/internal/util"
 
 	"crdx.org/col"
@@ -68,20 +68,18 @@ func fetchRawForDay(day string, accessKey string) (body []byte, err error) {
 	return
 }
 
-func getAccessKey() string {
-	accessKey, err := os.ReadFile(path.Join(os.Getenv("HOME"), ".config", ProgramName, "api_key"))
-	check(err)
-	return strings.TrimSpace(string(accessKey))
-}
-
 func main() {
 	log.SetFlags(0)
 	opts := duckopt.MustBind[Opts](getUsage(), "$0")
 
 	col.InitUnless(opts.NoColor)
 
+	cfg := config.Load()
+
 	day := util.GetYesterday()
-	ratesCache := cache.New(path.Join(os.Getenv("HOME"), ".cache", ProgramName, day+".json"))
+	cacheHome, err := os.UserCacheDir()
+	check(err)
+	ratesCache := cache.New(filepath.Join(cacheHome, ProgramName, day+".json"))
 
 	if opts.Clean {
 		if ratesCache.Delete() {
@@ -93,7 +91,7 @@ func main() {
 	}
 
 	raw, err := ratesCache.ReadBytes(func() []byte {
-		body, err := fetchRawForDay(day, getAccessKey())
+		body, err := fetchRawForDay(day, cfg.APIKey)
 		check(err)
 		return body
 	})

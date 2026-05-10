@@ -9,5 +9,6 @@ require (
 
 require (
 	crdx.org/hereduck v1.0.4 // indirect
+	github.com/BurntSushi/toml v1.6.0 // indirect
 	github.com/docopt/docopt-go v0.0.0-20180111231733-ee0de3bc6815 // indirect
 )
