@@ -48,7 +48,7 @@ curry -f USD -t GBP 10
 View a list of currencies.
 
 ```bash
-curry list
+curry ls
 ```
 
 ## Commands
