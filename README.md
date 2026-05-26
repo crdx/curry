@@ -14,7 +14,7 @@ go install crdx.org/curry@latest
 
 Place a valid exchangerates.io API key in `~/.config/curry/api_key`.
 
-## CLI
+## Usage
 
 ```
 Usage:
