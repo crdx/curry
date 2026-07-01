@@ -21,6 +21,7 @@ linters:
     - gocyclo
     - godot
     - godox
+    - gomodguard # deprecated: replaced by gomodguard_v2 (enabled via default: all)
     - gosec
     - inamedparam
     - ireturn
