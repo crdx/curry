@@ -10,6 +10,7 @@ linters:
     - errorlint
     - exhaustive
     - exhaustruct
+    - exhaustruct_v5 # replacement for exhaustruct (enabled via default: all)
     - forbidigo
     - forcetypeassert
     - funlen
