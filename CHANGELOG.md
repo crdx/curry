@@ -1,5 +1,7 @@
 # Changelog
 
+## [Next]
+
 ## [1.1.4] - 2023-01-20
 
 - Upgrade dependencies.
